@@ -1,0 +1,1 @@
+INSERT INTO user_table VALUES (1, 'abc','abc@abc.com',sysdate);

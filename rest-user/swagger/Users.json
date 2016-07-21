@@ -1,0 +1,301 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User API",
+    "description": "API provides options to the users",
+    "version": "v1",
+    "contact": {
+      "name": "API Support",
+      "url": "https://localhost/developer/support",
+      "email": "rajashaker@gmail.com"
+    },
+    "license": {
+      "name": "Open Source terms",
+      "url": "https://localhost/developer/terms"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Logical group of operations to manage a user's resource"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a user",
+        "description": "Create a user",
+        "operationId": "createUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "description": "Reference to a payload object for creation a user",
+            "schema": {
+              "$ref": "#/definitions/CreateUserBodyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created."
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all the users.",
+        "description": "Get all the users",
+        "operationId": "viewAllUsers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/GetUserBodyResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user specific details",
+        "description": "Get user specific details",
+        "operationId": "viewUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Unique identifier representing a user",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "$ref": "#/definitions/GetUserBodyResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update specific User information.",
+        "description": "Update a specific user information",
+        "operationId": "updateUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-http-method-override",
+            "in": "header",
+            "description": "Mandatory header parameter defines actual http method for backend service.",
+            "enum": [
+              "put",
+              "patch",
+              "delete"
+            ],
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Optional query parameter defines the list of comma-separated pairs contained field:value where ':' is a separator between the fields and values. This element is used in case of the 'method' has patch or delete values.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "payload",
+            "in": "body",
+            "required": false,
+            "description": "Reference to a payload object for updating a specific user. This element is mandatory in case of the 'x-http-method-override' header has 'put' value.",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserBodyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateUserBodyRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique user name",
+          "maxLength": 80
+        },
+        "email": {
+          "type": "string",
+          "description": "Unique email",
+          "maxLength": 80
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ]
+    },
+    "UpdateUserBodyRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique user name.",
+          "maxLength": 80
+        },
+        "email": {
+          "type": "string",
+          "description": "Unique email",
+          "maxLength": 80
+        }
+      }
+    },
+    "GetUserBodyResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique identifier representing a specific user."
+        },
+        "name": {
+          "type": "string",
+          "description": "Unique user name."
+        },
+        "email": {
+          "type": "string",
+          "description": "email."
+        },
+        "createdOn": {
+          "type": "string",
+          "description": "Creation date for user."
+        }
+      },
+      "required": [
+        "userId",
+        "name",
+        "email",
+        "createdOn"
+      ]
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "httpResponseCode": {
+          "type": "string",
+          "description": "Standard HTTP 400s or 500s error responses: 400 -Bad Request,401 -Unauthorized,403 -Forbidden,404 -Not Found,405 -Method Not Allowed,500 -Internal server error,503 -Service Unavailable.",
+          "enum": [
+            "400",
+            "401",
+            "403",
+            "404",
+            "405",
+            "500",
+            "503"
+          ]
+        },
+        "userMessage": {
+          "type": "string",
+          "description": "Nice error message description of the problem for user"
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "App Service error code message."
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "App Service error message."
+        },
+        "errorMoreInfo": {
+          "type": "string",
+          "description": "http://developer.localhost.com/apis/user/error-detail?errorCode={errorCodeValue}"
+        }
+      },
+      "required": [
+        "httpResponseCode",
+        "userMessage"
+      ]
+    }
+  }
+}
