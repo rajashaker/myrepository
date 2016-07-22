@@ -81,7 +81,9 @@ public class UserServiceTest {
 		User user = new User();
 		user.setName("service3");
 		user.setEmail("service3@service3.com");
-		Mockito.when(userDAO.findByName(any(String.class))).thenReturn(user);
+		List<User> userList = new ArrayList<User>();
+		userList.add(user);
+		Mockito.when(userDAO.findByName(any(String.class))).thenReturn(userList);
 		
 		UserResponse userResponse = userService.viewUser("vuser");
 		

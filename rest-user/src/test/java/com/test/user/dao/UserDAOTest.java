@@ -37,13 +37,12 @@ public class UserDAOTest {
     	UserDaoImpl userDao = new UserDaoImpl();
     	userDao.setNamedParameterJdbcTemplate(template);
     	
-    	User user = userDao.findByName("abc");
+    	List<User> userList = userDao.findByName("abc");
   
-    	Assert.assertNotNull(user);
-    	Assert.assertEquals(1, user.getId());
-    	Assert.assertEquals("abc", user.getName());
-    	Assert.assertEquals("abc@abc.com", user.getEmail());
-
+    	Assert.assertNotNull(userList);
+    	Assert.assertEquals(1, userList.get(0).getId());
+    	Assert.assertEquals("abc", userList.get(0).getName());
+    	Assert.assertEquals("abc@abc.com", userList.get(0).getEmail());
     }
     
     @Test
@@ -67,17 +66,22 @@ public class UserDAOTest {
     	UserDaoImpl userDao = new UserDaoImpl();
     	userDao.setNamedParameterJdbcTemplate(template);
     	
-    	User user = new User();
-    	user.setName("test");
-    	user.setEmail("test@test.com");
+    	User user1 = new User();
+    	user1.setName("test1");
+    	user1.setEmail("test1@test1.com");
     	
-    	userDao.createUser(user);
+    	User user2 = new User();
+    	user2.setName("test2");
+    	user2.setEmail("test2@test2.com");
     	
-    	User createdUser = userDao.findByName("test");
-    	  
-    	Assert.assertNotNull(createdUser);
-    	Assert.assertEquals("test", createdUser.getName());
-    	Assert.assertEquals("test@test.com", createdUser.getEmail());
+    	userDao.createUser(user1);
+    	userDao.createUser(user2);
+    	
+    	List<User> userList = userDao.findByName("test1");
+    	
+    	Assert.assertNotNull(userList);
+    	Assert.assertEquals("test1", userList.get(0).getName());
+    	Assert.assertEquals("test1@test1.com", userList.get(0).getEmail());
     }
     
     @Test
@@ -92,21 +96,21 @@ public class UserDAOTest {
     	
     	userDao.createUser(user);
     	
-    	User createdUser = userDao.findByName("test");
+    	List<User> createdUser = userDao.findByName("test");
     	  
     	Assert.assertNotNull(createdUser);
-    	Assert.assertEquals("test", createdUser.getName());
-    	Assert.assertEquals("test@test.com", createdUser.getEmail());
+    	Assert.assertEquals("test", createdUser.get(0).getName());
+    	Assert.assertEquals("test@test.com", createdUser.get(0).getEmail());
     	
-    	createdUser.setEmail("test@gmail.com");
+    	createdUser.get(0).setEmail("test@gmail.com");
     	
-    	userDao.updateUser(createdUser);
+    	userDao.updateUser(createdUser.get(0));
     	
-    	User updatedUser = userDao.findByName("test");
+    	List<User> updatedUser = userDao.findByName("test");
   	  
     	Assert.assertNotNull(updatedUser);
-    	Assert.assertEquals("test", updatedUser.getName());
-    	Assert.assertEquals("test@gmail.com", updatedUser.getEmail());
+    	Assert.assertEquals("test", updatedUser.get(0).getName());
+    	Assert.assertEquals("test@gmail.com", updatedUser.get(0).getEmail());
     }
     
     
@@ -122,15 +126,15 @@ public class UserDAOTest {
     	
     	userDao.createUser(user);
     	
-    	User createdUser = userDao.findByName("zabc");
+    	List<User> createdUser = userDao.findByName("zabc");
     	  
     	Assert.assertNotNull(createdUser);
-    	Assert.assertEquals("zabc", createdUser.getName());
-    	Assert.assertEquals("test@zabc.com", createdUser.getEmail());
+    	Assert.assertEquals("zabc", createdUser.get(0).getName());
+    	Assert.assertEquals("test@zabc.com", createdUser.get(0).getEmail());
     	
     	userDao.deleteUser("zabc");
     	
-    	User deletedUser = userDao.findByName("zabc");
+    	List<User> deletedUser = userDao.findByName("zabc");
   	  
     	Assert.assertNull(deletedUser);
     }    

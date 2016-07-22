@@ -51,11 +51,11 @@ public class UserServiceImpl implements UserService{
 	public UserResponse viewUser(String name) {
 		UserResponse userResponse = null;
 		// write logic for getting user from database
-		User user = userDAO.findByName(name);
-		if (user != null) {
+		List<User> userList = userDAO.findByName(name);
+		if (userList != null && userList.size()>0) {
 			userResponse = new UserResponse();
-			userResponse.setEmail(user.getEmail());
-			userResponse.setName(user.getName());
+			userResponse.setEmail(userList.get(0).getEmail());
+			userResponse.setName(userList.get(0).getName());
 		}
 		return userResponse;
 	}

@@ -6,7 +6,7 @@ import com.test.user.model.User;
 
 public interface UserDAO {
 
-	User findByName(String name);	
+	List<User> findByName(String name);	
 	List<User> findAll();
 	
 	boolean createUser(User user);

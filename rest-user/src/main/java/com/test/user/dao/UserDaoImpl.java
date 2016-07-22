@@ -26,23 +26,23 @@ public class UserDaoImpl implements UserDAO {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
 
-	public User findByName(String name) {
-		User result = null;
+	public List<User> findByName(String name) {
+		List<User> userList = null;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("name", name);
 
 		String sql = "SELECT * FROM user_table WHERE name=:name";
 
 		try {
-			result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
+			userList = namedParameterJdbcTemplate.query(sql, params, new UserMapper());
 		} catch (EmptyResultDataAccessException e) {
 			// do nothing just make result =null
-			result = null;
+			userList = null;
 		}
 
 		// new BeanPropertyRowMapper(Customer.class));
 
-		return result;
+		return userList;
 	}
 
 	public List<User> findAll() {
@@ -88,7 +88,7 @@ public class UserDaoImpl implements UserDAO {
 
 	public long nextId() {
 		// TODO Auto-generated method stub
-		String selectQuery = "select * from user_table";
+		String selectQuery = "select * from user_table where id = (select max(id) from user_table)";
 		Map<String, Object> params = new HashMap<String, Object>();
 		User user = namedParameterJdbcTemplate.queryForObject(selectQuery, params, new UserMapper());
 		return user.getId() + 1;

@@ -152,7 +152,7 @@ public class UserControllerTest extends AbstractManagementTests {
 
 		when(userServiceMock.updateUser(any(UserRequest.class))).thenReturn(userResponse);
 		try {
-			mockMvc.perform(post("/users/{userName}", "raja").header("method", "put")
+			mockMvc.perform(post("/users/{userName}", "raja").header("x-http-method-override", "put")
 					.contentType(TestUtil.APPLICATION_JSON_UTF8)
 					.content(TestUtil.convertObjectToJsonBytes(userRequest))).andExpect(status().isOk())
 					.andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
@@ -177,7 +177,7 @@ public class UserControllerTest extends AbstractManagementTests {
 
 		when(userServiceMock.deleteUser(any(String.class))).thenReturn(userResponse);
 		try {
-			mockMvc.perform(post("/users/{userName}", "raja").header("method", "delete")
+			mockMvc.perform(post("/users/{userName}", "raja").header("x-http-method-override", "delete")
 					.contentType(TestUtil.APPLICATION_JSON_UTF8)
 					.content(TestUtil.convertObjectToJsonBytes(userRequest))).andExpect(status().isOk())
 					.andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))

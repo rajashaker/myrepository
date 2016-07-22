@@ -75,7 +75,10 @@ public class UserController {
 	public JsonResponse updateUser(@PathVariable("userName") String userName, @RequestBody UserRequest userRequest, HttpServletRequest request) throws UserException{
 		String method = null; 
 		if(request.getHeaderNames()!=null){
-			method=request.getHeader("method");
+			method=request.getHeader("x-http-method-override");
+			if(null==method){
+				method="";
+			}
 		}
 		
 		UserResponse userResponse=null;
