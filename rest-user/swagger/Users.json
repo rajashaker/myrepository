@@ -86,9 +86,8 @@
         "responses": {
           "200": {
             "description": "OK.",
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/GetUserBodyResponse"
+            "schema": {
+              "$ref": "#/definitions/GetUsersBodyResponse"
             }
           },
           "default": {
@@ -153,6 +152,14 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Unique identifier representing a user",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          },
           {
             "name": "x-http-method-override",
             "in": "header",
@@ -229,6 +236,12 @@
           "description": "Unique email",
           "maxLength": 80
         }
+      }
+    },
+    "GetUsersBodyResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GetUserBodyResponse"
       }
     },
     "GetUserBodyResponse": {
