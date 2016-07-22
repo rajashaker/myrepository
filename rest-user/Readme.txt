@@ -5,5 +5,4 @@ The swagger document is subjected to minor changes.
 
 - Project has the Junit test cases at the controller, service, database layers
 
-- Known Issues:
-  resources are not accessible. Working on this.
+- I don't have a tomcat installed on my personal PC. JUnit tests for all the controllers, services, database layers are working fine.
