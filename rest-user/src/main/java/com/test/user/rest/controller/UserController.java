@@ -59,8 +59,7 @@ public class UserController {
 		return json;
 	}
 
-//	@RequestMapping(value = "/users/{userName}", method = RequestMethod.GET, produces = APPLICATION_JSON_UTF8)
-	@RequestMapping(value = "/users/{userName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/users/{userName}", method = RequestMethod.GET, produces = APPLICATION_JSON_UTF8)
 	@ResponseBody
 	public JsonResponse viewUser(@PathVariable("userName") String userName) throws UserException{
 		UserResponse userResponse = userService.viewUser(userName);
