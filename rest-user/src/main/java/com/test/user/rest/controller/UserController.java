@@ -73,7 +73,11 @@ public class UserController {
 	@RequestMapping(value = "/users/{userName}", method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8, produces = APPLICATION_JSON_UTF8)
 	@ResponseBody
 	public JsonResponse updateUser(@PathVariable("userName") String userName, @RequestBody UserRequest userRequest, HttpServletRequest request) throws UserException{
-		String method = request.getMethod();
+		String method = null; 
+		if(request.getHeaderNames()!=null){
+			method=request.getHeader("method");
+		}
+		
 		UserResponse userResponse=null;
 		JsonResponse json = null;
 		if(method.equalsIgnoreCase("delete")){
