@@ -7,4 +7,4 @@ The swagger document is subjected to minor changes.
 
 - JUnit tests for all the controllers, services, database layers are working fine.
 
-- Ping working fine in deployment version. Will check other APIs.
+- APIs are working fine. Have tested, verified all the APIs.
