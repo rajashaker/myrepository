@@ -35,6 +35,9 @@ public class UserDaoImpl implements UserDAO {
 
 		try {
 			userList = namedParameterJdbcTemplate.query(sql, params, new UserMapper());
+			if(null!=userList && userList.size()<1){
+				userList=null;
+			}
 		} catch (EmptyResultDataAccessException e) {
 			// do nothing just make result =null
 			userList = null;
