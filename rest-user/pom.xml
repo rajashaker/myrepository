@@ -11,7 +11,7 @@
 	<properties>
 		<spring.version>4.2.6.RELEASE</spring.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
-		<jackson.data.version>2.7.9.4</jackson.data.version>
+		<jackson.data.version>2.9.4</jackson.data.version>
 		<maven.war.plugin.version>2.6</maven.war.plugin.version>
 		<junit.version>4.11</junit.version>
 		<!-- unit test dependencies start -->
@@ -45,7 +45,7 @@
 			<version>${javax.servlet.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
+			<groupId>tcom.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.data.version}</version>
 		</dependency>
